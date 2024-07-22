@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>File Converter</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: #ffffff;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .form-control {
+      background-color: #2b2b2b;
+      color: #ffffff;
+      border: 1px solid #6c757d;
+    }
+    .btn {
+      background-color: #6f42c1;
+      border-color: #6f42c1;
+    }
+    .btn:hover {
+      background-color: #5a3eaf;
+      border-color: #5a3eaf;
+    }
+    .custom-select {
+      background-color: #2b2b2b;
+      color: #ffffff;
+      border: 1px solid #6c757d;
+    }
+    .custom-select option {
+      background-color: #2b2b2b;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h1 class="text-center mb-4">File Converter</h1>
+        <form id="uploadForm" method="post" enctype="multipart/form-data" action="/upload">
+          <div class="form-group">
+            <input type="file" class="form-control-file" name="file" id="fileInput">
+          </div>
+          <div class="form-group" id="formatSelector" style="display:none;">
+            <select class="custom-select" name="format" id="formatSelect">
+              <option selected disabled>Select output format</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-block" id="convertButton" style="display:none;">Convert and Download</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies (optional if needed) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Function to show format selector based on uploaded file type
+    document.getElementById('fileInput').addEventListener('change', function() {
+      var file = this.files[0];
+      var fileType = file.type.split('/')[0]; // Get file type (image, video, audio)
+      var formatSelector = document.getElementById('formatSelector');
+      var convertButton = document.getElementById('convertButton');
+      var formatSelect = document.getElementById('formatSelect');
+      
+      if (fileType === 'image') {
+        formatSelector.style.display = 'block';
+        convertButton.style.display = 'block';
+        formatSelect.innerHTML = `
+          <option selected disabled>Select output format</option>
+          <option value="jpg">JPG</option>
+          <option value="png">PNG</option>
+          <option value="gif">GIF</option>
+        `;
+      } else if (fileType === 'video') {
+        formatSelector.style.display = 'block';
+        convertButton.style.display = 'block';
+        formatSelect.innerHTML = `
+          <option selected disabled>Select output format</option>
+          <option value="mkv">MKV</option>
+          <option value="mp4">MP4</option>
+          <option value="avi">AVI</option>
+          <option value="webm">WEBM</option>
+        `;
+      } else if (fileType === 'audio') {
+        formatSelector.style.display = 'block';
+        convertButton.style.display = 'block';
+        formatSelect.innerHTML = `
+          <option selected disabled>Select output format</option>
+          <option value="mp3">MP3</option>
+          <option value="wav">WAV</option>
+          <option value="ogg">OGG</option>
+        `;
+      } else {
+        formatSelector.style.display = 'none';
+        convertButton.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
