@@ -52,13 +52,6 @@ Ensure you have the following installed on your system:
 
     Open a browser and navigate to http://localhost:5006 (or replace localhost with your server IP if hosting remotely).
 
-## Configuration
-
-To change the application's default port, modify the last line in app.py:
-```app.run(host='0.0.0.0', port=5006)```
-
-Replace  ```5006``` with the port number you prefer.
-
 
 ## Usage
 
@@ -67,12 +60,18 @@ Replace  ```5006``` with the port number you prefer.
 2. **Select Conversion Format:** Once uploaded, select the desired format to convert the file into.
 3. **Convert and Download:** Click "Convert and Download," and the file in the new format will be ready for download shortly.
 
-
 ## Supported Formats
 The application supports conversions between the following formats:
 
 - **Image Formats:** ```jpg```, ```jpeg```, ```png```, ```gif```, ```webp```
 - **Video Formats:** ```mp4```, ```avi```, ```mov```, ```mkv```, ```webm```
+
+## Configuration
+
+To change the application's default port, modify the last line in app.py:
+```app.run(host='0.0.0.0', port=5006)```
+
+Replace  ```5006``` with the port number you prefer.
 
 ## File Structure
 
