@@ -81,5 +81,4 @@ The application supports conversions between the following formats:
 - **converted/:** Directory where converted files are saved.
 
 ## Contributing
-
-[!NOTE]Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements, bug fixes, or new features.
+Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements, bug fixes, or new features.
