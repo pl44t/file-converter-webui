@@ -81,3 +81,6 @@ Replace  ```5006``` with the port number you prefer.
 
 ## Contributing
 Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements, bug fixes, or new features.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
