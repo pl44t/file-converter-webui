@@ -6,7 +6,6 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 CONVERTED_FOLDER = 'converted'
 ALLOWED_VIDEO_EXTENSIONS = {'mp4', 'avi', 'mov', 'mkv', 'webm'}
-ALLOWED_AUDIO_EXTENSIONS = {'mp3', 'wav', 'ogg'}
 ALLOWED_IMAGE_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif', 'webp'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -21,8 +20,8 @@ if not os.path.exists(CONVERTED_FOLDER):
 def allowed_file(filename, file_type):
     if file_type == 'image':
         return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_IMAGE_EXTENSIONS
-    elif file_type in ['video', 'audio']:
-        return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_VIDEO_EXTENSIONS.union(ALLOWED_AUDIO_EXTENSIONS)
+    elif file_type in ['video']:
+        return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_VIDEO_EXTENSIONS
     else:
         return False
 
@@ -44,8 +43,6 @@ def upload_file():
         file_type = 'image'
     elif allowed_file(file.filename, 'video'):
         file_type = 'video'
-    elif allowed_file(file.filename, 'audio'):
-        file_type = 'audio'
     else:
         return 'File type not allowed'
 
@@ -74,14 +71,6 @@ def upload_file():
             subprocess.call(['ffmpeg', '-y', '-i', filepath, converted_filepath])
         else:
             return 'Invalid video format selected'
-    elif file_type == 'audio':
-        if selected_format in ALLOWED_AUDIO_EXTENSIONS:
-            # Convert the audio using FFmpeg
-            converted_filename = f"{filename.rsplit('.', 1)[0]}.{selected_format}"
-            converted_filepath = os.path.join(app.config['CONVERTED_FOLDER'], converted_filename)
-            subprocess.call(['ffmpeg', '-y', '-i', filepath, converted_filepath])
-        else:
-            return 'Invalid audio format selected'
     else:
         return 'File type not supported'
 
