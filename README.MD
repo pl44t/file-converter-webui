@@ -44,9 +44,9 @@ Ensure you have the following installed on your system:
 
 3.    **Run the application:**
 
-   ```bash
+   ```
     python app.py
-```
+   ```
 
 4. **Access the Web UI:**
 
