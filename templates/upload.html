@@ -84,7 +84,7 @@
     // Function to show format selector based on uploaded file type
     document.getElementById('fileInput').addEventListener('change', function() {
       var file = this.files[0];
-      var fileType = file.type.split('/')[0]; // Get file type (image, video, audio)
+      var fileType = file.type.split('/')[0]; // Get file type (image, video)
       var formatSelector = document.getElementById('formatSelector');
       var convertButton = document.getElementById('convertButton');
       var formatSelect = document.getElementById('formatSelect');
@@ -108,15 +108,6 @@
           <option value="mp4">MP4</option>
           <option value="avi">AVI</option>
           <option value="webm">WEBM</option>
-        `;
-      } else if (fileType === 'audio') {
-        formatSelector.style.display = 'block';
-        convertButton.style.display = 'block';
-        formatSelect.innerHTML = `
-          <option selected disabled>Select output format</option>
-          <option value="mp3">MP3</option>
-          <option value="wav">WAV</option>
-          <option value="ogg">OGG</option>
         `;
       } else {
         formatSelector.style.display = 'none';
