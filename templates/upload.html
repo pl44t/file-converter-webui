@@ -19,7 +19,6 @@
     }
     .form-control {
       background-color: #2b2b2b;
-      color: #ffffff;
       border: 1px solid #6c757d;
     }
     .btn {
@@ -39,6 +38,20 @@
       background-color: #2b2b2b;
       color: #ffffff;
     }
+    .form-control-file {
+      color: red;
+    }
+    .btn-file {
+      background-color: #007bff; /* Classic blue color */
+      border-color: #007bff;
+      color: #ffffff;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-file:hover {
+      background-color: #0069d9; /* Darker shade on hover */
+      border-color: #0062cc;
+    }
   </style>
 </head>
 <body>
@@ -48,8 +61,9 @@
         <h1 class="text-center mb-4">File Converter</h1>
         <form id="uploadForm" method="post" enctype="multipart/form-data" action="/upload">
           <div class="form-group">
-            <input type="file" class="form-control-file" name="file" id="fileInput">
-          </div>
+            <label for="fileInput" class="btn btn-block btn-file">Choose File</label>
+            <input type="file" class="form-control-file" name="file" id="fileInput" style="display: none;">
+          </div>          
           <div class="form-group" id="formatSelector" style="display:none;">
             <select class="custom-select" name="format" id="formatSelect">
               <option selected disabled>Select output format</option>
@@ -83,6 +97,7 @@
           <option value="jpg">JPG</option>
           <option value="png">PNG</option>
           <option value="gif">GIF</option>
+          <option value="webp">WEBP</option>
         `;
       } else if (fileType === 'video') {
         formatSelector.style.display = 'block';
