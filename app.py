@@ -1,6 +1,9 @@
 from flask import Flask, request, render_template, send_from_directory, after_this_request
 import os
 import subprocess
+import threading
+import time
+
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
@@ -24,6 +27,17 @@ def allowed_file(filename, file_type):
         return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_VIDEO_EXTENSIONS
     else:
         return False
+
+def delayed_file_deletion(filepath, delay):
+    """Delete a file after a delay in seconds."""
+    time.sleep(delay)
+    try:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+            app.logger.info(f"Deleted file: {filepath}")
+    except Exception as e:
+        app.logger.error(f"Error deleting file: {filepath}, Error: {e}")
+
 
 @app.route('/')
 def upload_form():
@@ -74,15 +88,18 @@ def upload_file():
     else:
         return 'File type not supported'
 
-    # Delete the uploaded file after conversion and before sending the converted file
+        # Delete the uploaded file after conversion and before sending the converted file
     @after_this_request
-    def remove_file(response):
+    def remove_uploaded_file(response):
         try:
             os.remove(filepath)
-            os.remove(converted_filepath)  # Remove converted file if not needed
+            app.logger.info(f"Deleted uploaded file: {filepath}")
         except Exception as error:
-            app.logger.error("Error removing or closing downloaded file handle", error)
+            app.logger.error(f"Error removing uploaded file: {filepath}, Error: {error}")
         return response
+
+    # Schedule the converted file for deletion after 1 minute
+    threading.Thread(target=delayed_file_deletion, args=(converted_filepath, 60)).start()
 
     return send_from_directory(app.config['CONVERTED_FOLDER'], converted_filename, as_attachment=True)
 
